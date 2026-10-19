@@ -1,0 +1,36 @@
+# =============================================
+# JIRA Test Case Generator — .gitignore
+# =============================================
+
+# Environment variables — NEVER commit real credentials
+.env
+
+# macOS system files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime logs
+*.log
+logs/
+
+# Build output (if added later)
+dist/
+build/
+
+# Editor / IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS temp files
+Thumbs.db

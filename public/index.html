@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RICPOT JIRA Test Case Generator | Anti-Hallucination QA Tool</title>
+  <meta name="description" content="Interactive web app to connect with JIRA API, summarize tickets, and generate RICPOT test cases with strict anti-hallucination compliance." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Background glow effects -->
+  <div class="bg-blob bg-blob-1"></div>
+  <div class="bg-blob bg-blob-2"></div>
+  <div class="bg-blob bg-blob-3"></div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-icon">
+          <span class="logo-letters">R</span>
+        </div>
+        <div class="logo-text">
+          <span class="logo-title">RICPOT JIRA</span>
+          <span class="logo-sub">Test Case Generator</span>
+        </div>
+      </div>
+
+      <div class="header-status" id="connectionBadge">
+        <span class="status-dot dot-gray"></span>
+        <span class="status-text" id="statusText">JIRA: Not Connected</span>
+      </div>
+
+      <nav class="header-actions">
+        <button class="btn btn-ghost" id="settingsBtn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z"></path><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"></path></svg>
+          Settings
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Zero Hallucination QA Standard
+      </div>
+      <h1 class="hero-title">
+        JIRA Ticket <span class="gradient-text">Test Case Generator</span>
+      </h1>
+      <p class="hero-desc">
+        Connect to JIRA, ask questions, summarize requirements, and generate up to 15 strict RICPOT test cases with explicit anti-hallucination rules.
+      </p>
+
+      <!-- Quick Demo Chips -->
+      <div class="demo-bar">
+        <span class="demo-label">Try sample ticket:</span>
+        <button class="chip-ticket" data-key="JIRA-121">JIRA-121 (OAuth & SSO)</button>
+        <button class="chip-ticket" data-key="QA-1042">QA-1042 (Password Reset)</button>
+        <button class="chip-ticket" data-key="PROJ-789">PROJ-789 (Stripe Checkout)</button>
+        <button class="chip-ticket" data-key="JIRA-EMPTY">JIRA-EMPTY (Empty Ticket)</button>
+      </div>
+    </section>
+
+    <!-- Query Console -->
+    <section class="console-section">
+      <div class="card console-card">
+        <div class="console-header">
+          <div class="console-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"></path></svg>
+            JIRA Prompt Interface
+          </div>
+          <span class="rule-badge" title="Strict Anti-Hallucination Active">🛡️ Zero Hallucination Guard</span>
+        </div>
+
+        <form id="queryForm" class="console-form">
+          <div class="input-wrapper console-input-wrapper">
+            <input type="text" id="queryInput" class="field-input console-input"
+              placeholder="e.g. please create test cases for JIRA-121" required />
+            <button type="submit" class="btn btn-primary btn-submit" id="submitBtn">
+              <span>Generate</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </form>
+
+        <!-- Compliance Rules Pill Bar -->
+        <div class="rules-bar">
+          <span class="rule-tag">🚫 No feature invention</span>
+          <span class="rule-tag">🚫 No default behavior assumptions</span>
+          <span class="rule-tag">⚠️ Highlight missing info</span>
+          <span class="rule-tag">🏷️ Tag inferences</span>
+          <span class="rule-tag">🔢 Max 15 initial cases</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Loading Indicator -->
+    <div class="loading-container hidden" id="loadingSpinner">
+      <div class="spinner"></div>
+      <div class="loading-text" id="loadingText">Fetching ticket details & generating RICPOT test cases...</div>
+    </div>
+
+    <!-- Inline Error Panel -->
+    <div class="error-panel hidden" id="errorPanel">
+      <div class="error-panel-icon">⚠️</div>
+      <div class="error-panel-body">
+        <div class="error-panel-title">Could not load JIRA ticket</div>
+        <div class="error-panel-msg" id="errorPanelMsg"></div>
+        <div class="error-panel-hint" id="errorPanelHint"></div>
+      </div>
+      <div class="error-panel-actions">
+        <button class="btn btn-ghost btn-sm" id="openSettingsFromError">
+          ⚙️ Open Settings
+        </button>
+      </div>
+    </div>
+
+    <!-- Output Section -->
+    <section class="output-section hidden" id="outputSection">
+      
+      <!-- JIRA Summary Card -->
+      <div class="card summary-card" id="summaryContainer">
+        <div class="card-header border-bottom">
+          <div class="card-icon jira-icon">🎫</div>
+          <div class="summary-header-content">
+            <div class="ticket-meta-line">
+              <span class="badge-jira-key" id="ticketKey">JIRA-121</span>
+              <span class="badge-jira-type" id="ticketType">Story</span>
+              <span class="badge-jira-priority" id="ticketPriority">High</span>
+              <span class="badge-jira-status" id="ticketStatus">In Progress</span>
+            </div>
+            <h2 class="summary-ticket-title" id="ticketSummaryTitle">Loading Summary...</h2>
+          </div>
+        </div>
+
+        <div class="summary-body">
+          <div class="summary-block">
+            <h3 class="block-label">📌 Ticket Executive Summary</h3>
+            <p class="summary-text" id="ticketOverviewText">Loading...</p>
+          </div>
+
+          <div class="summary-block">
+            <h3 class="block-label">📋 Key Requirements & Scope</h3>
+            <ul class="req-list" id="ticketReqList"></ul>
+          </div>
+
+          <!-- Missing Info Warning (if any) -->
+          <div class="warning-box hidden" id="missingInfoBox">
+            <div class="warning-title">⚠️ Missing / Ambiguous Information Notice</div>
+            <ul class="warning-list" id="missingInfoList"></ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Test Cases Table Card -->
+      <div class="card table-card">
+        <div class="table-header-bar">
+          <div>
+            <h2 class="card-title">
+              🧪 RICPOT Test Cases Matrix
+              <span class="badge-count" id="caseCountBadge">0 / 0</span>
+            </h2>
+            <p class="card-desc">Max 15 critical & major test cases per batch. Fully deterministic.</p>
+          </div>
+
+          <div class="table-actions">
+            <button class="btn btn-ghost btn-sm" id="copyMarkdownBtn">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path></svg>
+              Copy Markdown
+            </button>
+            <button class="btn btn-ghost btn-sm" id="downloadCsvBtn">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Export CSV
+            </button>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="testcase-table" id="testCaseTable">
+            <thead>
+              <tr>
+                <th style="width: 110px;">TC ID</th>
+                <th style="width: 220px;">Title / Scenario</th>
+                <th style="width: 140px;">Type</th>
+                <th style="width: 180px;">Preconditions</th>
+                <th>Test Steps</th>
+                <th style="width: 200px;">Expected Result</th>
+                <th style="width: 90px;">Priority</th>
+                <th style="width: 180px;">Confidence / Notes</th>
+              </tr>
+            </thead>
+            <tbody id="testCaseTableBody">
+              <!-- Dynamically filled -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Continuation Banner if >15 test cases exist -->
+        <div class="continuation-box hidden" id="continuationBox">
+          <div class="continuation-content">
+            <div class="continuation-icon">⚠️</div>
+            <div>
+              <div class="continuation-title">Additional Test Cases Available</div>
+              <div class="continuation-desc" id="continuationText">
+                Note: Additional test cases are required for full coverage. Would you like to generate the remaining test cases?
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-sm" id="loadMoreBtn">Generate Remaining Test Cases</button>
+        </div>
+
+      </div>
+
+    </section>
+  </main>
+
+  <!-- Settings Modal -->
+  <div class="modal-overlay hidden" id="settingsModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z"></path><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"></path></svg>
+          JIRA Platform Connection Settings
+        </div>
+        <button class="modal-close" id="closeModalBtn">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <p class="modal-desc">Configure your JIRA Cloud / Server connection to fetch live tickets.</p>
+
+        <div class="field-group">
+          <label class="field-label" for="jiraUrlInput">JIRA Base URL <span class="required">*</span></label>
+          <div class="input-wrapper">
+            <span class="input-prefix">🌐</span>
+            <input type="url" id="jiraUrlInput" class="field-input" placeholder="https://your-domain.atlassian.net" />
+          </div>
+          <span class="field-hint">e.g. https://mycompany.atlassian.net</span>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="jiraEmailInput">JIRA Email / Username <span class="required">*</span></label>
+          <div class="input-wrapper">
+            <span class="input-prefix">📧</span>
+            <input type="email" id="jiraEmailInput" class="field-input" placeholder="user@company.com" />
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="jiraTokenInput">JIRA API Token <span class="required">*</span></label>
+          <div class="input-wrapper">
+            <span class="input-prefix">🔑</span>
+            <input type="password" id="jiraTokenInput" class="field-input" placeholder="ATATT3xFfGF0..." />
+          </div>
+          <span class="field-hint">Generate in Atlassian Account Settings → Security → API Tokens</span>
+        </div>
+
+        <!-- Connection Test Result Message -->
+        <div class="conn-message hidden" id="connMessage"></div>
+      </div>
+
+      <!-- Action buttons: Connect and Cancel -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-ghost" id="cancelConnBtn">Cancel</button>
+        <button type="button" class="btn btn-primary" id="connectConnBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          Connect
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+    <span id="toastMsg">Notification message</span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

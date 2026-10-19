@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RICPOT Test Case Generator | JIRA-Linked Prompt Builder</title>
+  <meta name="description" content="Generate structured test case prompts using the RICPOT framework — Role, Instruction, Context, Parameters, Output, Tonality — linked to JIRA IDs." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Background blobs -->
+  <div class="bg-blob bg-blob-1"></div>
+  <div class="bg-blob bg-blob-2"></div>
+  <div class="bg-blob bg-blob-3"></div>
+
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-icon">
+          <span class="logo-letters">R</span>
+        </div>
+        <div class="logo-text">
+          <span class="logo-title">RICPOT</span>
+          <span class="logo-sub">Test Case Generator</span>
+        </div>
+      </div>
+      <nav class="header-actions">
+        <button class="btn btn-ghost" id="clearBtn">Clear All</button>
+        <button class="btn btn-primary" id="generateBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          Generate Template
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Prompt Engineering Framework
+      </div>
+      <h1 class="hero-title">
+        Craft Perfect Test Cases <br/>
+        with <span class="gradient-text">RICPOT</span>
+      </h1>
+      <p class="hero-desc">
+        Structure your QA prompts using <strong>Role · Instruction · Context · Parameters · Output · Tonality</strong> — linked directly to your JIRA ticket.
+      </p>
+
+      <!-- RICPOT pills -->
+      <div class="ricpot-pills">
+        <span class="pill pill-r">R <em>ole</em></span>
+        <span class="pill-sep">·</span>
+        <span class="pill pill-i">I <em>nstruction</em></span>
+        <span class="pill-sep">·</span>
+        <span class="pill pill-c">C <em>ontext</em></span>
+        <span class="pill-sep">·</span>
+        <span class="pill pill-p">P <em>arameters</em></span>
+        <span class="pill-sep">·</span>
+        <span class="pill pill-o">O <em>utput</em></span>
+        <span class="pill-sep">·</span>
+        <span class="pill pill-t">T <em>onality</em></span>
+      </div>
+    </section>
+
+    <!-- Form -->
+    <section class="form-section">
+      <form id="ricpotForm" novalidate>
+
+        <!-- JIRA ID Card -->
+        <div class="card card-jira">
+          <div class="card-header">
+            <div class="card-icon jira-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.24 16L12 15.45 7.77 18l1.12-4.81-3.73-3.23 4.92-.42L12 5l1.92 4.53 4.92.42-3.73 3.23L16.23 18z"/></svg>
+            </div>
+            <div>
+              <h2 class="card-title">JIRA Details</h2>
+              <p class="card-desc">Link this test case to a JIRA issue</p>
+            </div>
+          </div>
+          <div class="field-grid">
+            <div class="field-group">
+              <label class="field-label" for="jiraId">
+                JIRA ID <span class="required">*</span>
+              </label>
+              <div class="input-wrapper">
+                <span class="input-prefix">🎫</span>
+                <input id="jiraId" name="jiraId" type="text" class="field-input"
+                  placeholder="e.g. QA-1042, PROJ-789" required />
+              </div>
+              <span class="field-hint">Ticket ID from your JIRA project</span>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="jiraTitle">
+                Story / Ticket Title
+              </label>
+              <div class="input-wrapper">
+                <span class="input-prefix">📝</span>
+                <input id="jiraTitle" name="jiraTitle" type="text" class="field-input"
+                  placeholder="e.g. User can reset password via email" />
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="priority">Priority</label>
+              <div class="input-wrapper">
+                <span class="input-prefix">🚦</span>
+                <select id="priority" name="priority" class="field-input field-select">
+                  <option value="">Select priority…</option>
+                  <option value="Critical">🔴 Critical</option>
+                  <option value="High">🟠 High</option>
+                  <option value="Medium">🟡 Medium</option>
+                  <option value="Low">🟢 Low</option>
+                </select>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="testType">Test Type</label>
+              <div class="input-wrapper">
+                <span class="input-prefix">🔬</span>
+                <select id="testType" name="testType" class="field-input field-select">
+                  <option value="">Select type…</option>
+                  <option value="Functional">Functional</option>
+                  <option value="Integration">Integration</option>
+                  <option value="Regression">Regression</option>
+                  <option value="Smoke">Smoke</option>
+                  <option value="UAT">UAT</option>
+                  <option value="Performance">Performance</option>
+                  <option value="Security">Security</option>
+                  <option value="API">API</option>
+                  <option value="UI/UX">UI/UX</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RICPOT Cards -->
+        <div class="ricpot-grid">
+
+          <!-- R — Role -->
+          <div class="card ricpot-card" data-letter="R" data-color="r">
+            <div class="card-header">
+              <div class="card-letter letter-r">R</div>
+              <div>
+                <h2 class="card-title">Role</h2>
+                <p class="card-desc">Who is performing or requesting this test?</p>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="role">Define the Role <span class="required">*</span></label>
+              <textarea id="role" name="role" class="field-textarea" rows="3"
+                placeholder="e.g. You are a senior QA engineer specializing in e-commerce platforms. Your task is to validate the checkout flow for registered users." required></textarea>
+              <div class="quick-chips">
+                <span class="chip" data-target="role" data-value="You are a senior QA engineer responsible for functional testing of the feature described in {JIRA_ID}.">QA Engineer</span>
+                <span class="chip" data-target="role" data-value="You are a business analyst verifying acceptance criteria for {JIRA_ID} from an end-user perspective.">Business Analyst</span>
+                <span class="chip" data-target="role" data-value="You are an automation test engineer designing test scenarios for CI/CD pipeline integration linked to {JIRA_ID}.">Automation Engineer</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- I — Instruction -->
+          <div class="card ricpot-card" data-letter="I" data-color="i">
+            <div class="card-header">
+              <div class="card-letter letter-i">I</div>
+              <div>
+                <h2 class="card-title">Instruction</h2>
+                <p class="card-desc">What exactly should be tested or generated?</p>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="instruction">Define the Instruction <span class="required">*</span></label>
+              <textarea id="instruction" name="instruction" class="field-textarea" rows="3"
+                placeholder="e.g. Generate comprehensive test cases covering happy path, negative scenarios, boundary values, and edge cases for the password reset feature." required></textarea>
+              <div class="quick-chips">
+                <span class="chip" data-target="instruction" data-value="Generate a complete set of test cases (positive, negative, boundary, edge) for the feature in {JIRA_ID}.">Full Coverage</span>
+                <span class="chip" data-target="instruction" data-value="Write step-by-step manual test scenarios with clear preconditions and expected results for {JIRA_ID}.">Manual Steps</span>
+                <span class="chip" data-target="instruction" data-value="Identify and document all possible failure modes and risk scenarios for the functionality in {JIRA_ID}.">Risk Analysis</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- C — Context -->
+          <div class="card ricpot-card" data-letter="C" data-color="c">
+            <div class="card-header">
+              <div class="card-letter letter-c">C</div>
+              <div>
+                <h2 class="card-title">Context</h2>
+                <p class="card-desc">Background, environment, and related information</p>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="context">Provide Context <span class="required">*</span></label>
+              <textarea id="context" name="context" class="field-textarea" rows="4"
+                placeholder="e.g. This is an e-commerce web app. The feature is a password reset flow triggered via email. Users receive a tokenized link valid for 24h. Testing environment: Staging. Browser: Chrome 120+, Firefox 115+." required></textarea>
+              <div class="quick-chips">
+                <span class="chip" data-target="context" data-value="Application: Web. Environment: Staging. This feature is part of the user authentication module linked to {JIRA_ID}.">Web App</span>
+                <span class="chip" data-target="context" data-value="Application: Mobile (iOS/Android). Environment: QA. The feature under {JIRA_ID} impacts the core user journey.">Mobile App</span>
+                <span class="chip" data-target="context" data-value="REST API endpoint being tested. Environment: Integration. Related to {JIRA_ID} in the backend services layer.">API Testing</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- P — Parameters -->
+          <div class="card ricpot-card" data-letter="P" data-color="p">
+            <div class="card-header">
+              <div class="card-letter letter-p">P</div>
+              <div>
+                <h2 class="card-title">Parameters</h2>
+                <p class="card-desc">Constraints, inputs, test data, and preconditions</p>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="parameters">Define Parameters <span class="required">*</span></label>
+              <textarea id="parameters" name="parameters" class="field-textarea" rows="4"
+                placeholder="e.g. Constraints: Token expiry = 24h. Valid email domains only. Max 3 reset attempts per hour. Test data: valid_user@test.com, invalid@, empty string. Preconditions: User must be registered and active." required></textarea>
+              <div class="quick-chips">
+                <span class="chip" data-target="parameters" data-value="Include boundary values, null/empty inputs, special characters, and max-length constraints. Precondition: Feature flag enabled for {JIRA_ID}.">Boundary + Edge</span>
+                <span class="chip" data-target="parameters" data-value="Test data: valid credentials, invalid credentials, expired tokens, duplicate entries. Use test account: qa_user@example.com.">Test Data Set</span>
+                <span class="chip" data-target="parameters" data-value="Preconditions: User logged out. DB seeded with test records. Feature toggle ON. Rate limiting: 5 req/min for {JIRA_ID}.">Preconditions</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- O — Output -->
+          <div class="card ricpot-card" data-letter="O" data-color="o">
+            <div class="card-header">
+              <div class="card-letter letter-o">O</div>
+              <div>
+                <h2 class="card-title">Output</h2>
+                <p class="card-desc">Expected format and structure of the test case output</p>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="output">Define Expected Output <span class="required">*</span></label>
+              <textarea id="output" name="output" class="field-textarea" rows="4"
+                placeholder="e.g. Provide test cases in a structured table with columns: Test Case ID, Test Case Title, Preconditions, Test Steps, Expected Result, Priority. Include at least 10 test cases covering all scenarios." required></textarea>
+              <div class="quick-chips">
+                <span class="chip" data-target="output" data-value="Output a structured table with: TC ID, Title, Preconditions, Steps, Expected Result, Priority, Test Type. Minimum 10 cases for {JIRA_ID}.">Table Format</span>
+                <span class="chip" data-target="output" data-value="Output test cases as numbered Gherkin scenarios (Given/When/Then) suitable for BDD automation for {JIRA_ID}.">Gherkin/BDD</span>
+                <span class="chip" data-target="output" data-value="Output a JSON array of test case objects with fields: id, title, steps[], expectedResult, priority for JIRA {JIRA_ID}.">JSON Format</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- T — Tonality -->
+          <div class="card ricpot-card" data-letter="T" data-color="t">
+            <div class="card-header">
+              <div class="card-letter letter-t">T</div>
+              <div>
+                <h2 class="card-title">Tonality</h2>
+                <p class="card-desc">Writing style, tone, and audience for the output</p>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="tonality">Set the Tonality <span class="required">*</span></label>
+              <textarea id="tonality" name="tonality" class="field-textarea" rows="3"
+                placeholder="e.g. Use a formal, technical tone suitable for a QA documentation audience. Be concise, precise, and unambiguous. Avoid jargon where possible." required></textarea>
+              <div class="quick-chips">
+                <span class="chip" data-target="tonality" data-value="Formal and technical. Precise and unambiguous. Suitable for QA documentation and audit trails.">Formal/Technical</span>
+                <span class="chip" data-target="tonality" data-value="Clear and simple language suitable for non-technical stakeholders reviewing UAT test cases.">Non-Technical</span>
+                <span class="chip" data-target="tonality" data-value="Concise and developer-friendly. Use technical terminology. Assume familiarity with the codebase and system architecture.">Developer-Friendly</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Additional Options -->
+        <div class="card card-options">
+          <div class="card-header">
+            <div class="card-icon options-icon">⚙️</div>
+            <div>
+              <h2 class="card-title">Output Options</h2>
+              <p class="card-desc">Customize how the generated template looks</p>
+            </div>
+          </div>
+          <div class="options-grid">
+            <label class="toggle-label">
+              <input type="checkbox" id="includeJiraLink" checked />
+              <span class="toggle-track"><span class="toggle-thumb"></span></span>
+              Include JIRA hyperlink in prompt
+            </label>
+            <label class="toggle-label">
+              <input type="checkbox" id="includeMetadata" checked />
+              <span class="toggle-track"><span class="toggle-thumb"></span></span>
+              Include metadata header (priority, type)
+            </label>
+            <label class="toggle-label">
+              <input type="checkbox" id="includeExamples" />
+              <span class="toggle-track"><span class="toggle-thumb"></span></span>
+              Add example test case as reference
+            </label>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-ghost btn-lg" id="clearBtnBottom">Clear Form</button>
+          <button type="submit" class="btn btn-primary btn-lg" id="generateBtnSubmit">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            Generate RICPOT Template
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Output Section -->
+    <section class="output-section" id="outputSection" aria-hidden="true">
+      <div class="output-header">
+        <div>
+          <h2 class="output-title">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Generated RICPOT Template
+          </h2>
+          <p class="output-subtitle" id="outputSubtitle">Ready to copy and use in your AI prompts or JIRA comments</p>
+        </div>
+        <div class="output-actions">
+          <button class="btn btn-ghost btn-sm" id="copyBtn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path></svg>
+            Copy
+          </button>
+          <button class="btn btn-ghost btn-sm" id="downloadBtn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Download
+          </button>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="output-tabs">
+        <button class="tab-btn tab-active" data-tab="formatted">📋 Formatted Preview</button>
+        <button class="tab-btn" data-tab="raw">📄 Raw Prompt</button>
+        <button class="tab-btn" data-tab="summary">📊 Summary Card</button>
+      </div>
+
+      <div class="tab-content" id="tabFormatted">
+        <div class="formatted-output" id="formattedOutput"></div>
+      </div>
+      <div class="tab-content hidden" id="tabRaw">
+        <div class="raw-output-wrapper">
+          <pre class="raw-output" id="rawOutput"></pre>
+        </div>
+      </div>
+      <div class="tab-content hidden" id="tabSummary">
+        <div class="summary-card" id="summaryCard"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>RICPOT Framework · <strong>R</strong>ole · <strong>I</strong>nstruction · <strong>C</strong>ontext · <strong>P</strong>arameters · <strong>O</strong>utput · <strong>T</strong>onality</p>
+    <p class="footer-sub">Structured prompt engineering for smarter test case generation</p>
+  </footer>
+
+  <div class="toast" id="toast">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+    <span id="toastMsg">Copied to clipboard!</span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

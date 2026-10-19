@@ -1,0 +1,14 @@
+{
+  "name": "jira-testcase-generator",
+  "version": "1.0.0",
+  "description": "Locally-hosted web app to connect with JIRA, fetch ticket details, and generate structured QA test cases using RICPOT methodology with strict anti-hallucination rules",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  }
+}
